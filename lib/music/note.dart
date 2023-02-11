@@ -31,4 +31,8 @@ class Note {
     int newValue = (position + semitones) % allNotes.length;
     return Note.internal(allNotes[newValue], newValue);
   }
+
+  bool isEqualTo(Note note) {
+    return name == note.name;
+  }
 }
