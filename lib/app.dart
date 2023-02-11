@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:guitar/scales/scale_screen.dart';
+import 'package:guitar/scales/screen.dart';
 
 class GuitarApp extends StatelessWidget {
   const GuitarApp({super.key});
