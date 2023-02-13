@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:guitar/guitar/fret_string.dart';
 import 'package:guitar/guitar/fretboard.dart';
 
 import 'package:guitar/music/chord.dart';
