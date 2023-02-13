@@ -4,16 +4,13 @@ import 'package:guitar/scales/screen.dart';
 
 class GuitarApp extends StatelessWidget {
   const GuitarApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Guitar Scales Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
+      title: 'GuitarApp',
       home: const ScaleScreen(title: 'Guitar Scales'),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.purple),
     );
   }
 }

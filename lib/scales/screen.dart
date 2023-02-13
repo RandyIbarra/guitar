@@ -6,9 +6,13 @@ import 'package:guitar/music/chord.dart';
 import 'package:guitar/music/note.dart';
 import 'package:guitar/music/scale.dart';
 
+/// This page build a guitar [Fretboard] with a specific tunning and shows
+/// all notes for each fret space. Now, you only are able to change the tunning
+/// from code, but we are working on create a interface to do it from the app.
 class ScaleScreen extends StatefulWidget {
   const ScaleScreen({super.key, required this.title});
 
+  /// Screen title
   final String title;
 
   @override
