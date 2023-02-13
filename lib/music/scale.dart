@@ -1,7 +1,11 @@
 import 'package:guitar/music/note.dart';
 
+/// Simple dart implementation of a music scale objet.
 class Scale {
+  /// Key note of scale
   Note key;
+
+  /// Notes in scale
   List<Note> notes;
 
   Scale.internal(this.key, this.notes);
@@ -19,14 +23,17 @@ class Scale {
     return Scale.internal(key, notes);
   }
 
+  /// Major scale constructor from key note
   factory Scale.getMajor(Note key) {
     return Scale(key, <int>[2, 2, 1, 2, 2, 2, 1]);
   }
 
+  /// Minor scale constructor from key note
   factory Scale.getMinor(Note key) {
     return Scale(key, <int>[2, 1, 2, 2, 1, 2, 2]);
   }
 
+  /// Chromatic scale constructor from key note
   factory Scale.getChromatic(Note key) {
     return Scale(key, <int>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
   }
