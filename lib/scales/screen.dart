@@ -19,40 +19,40 @@ class ScaleScreen extends StatefulWidget {
 }
 
 class _ScaleScreenState extends State<ScaleScreen> {
+  /// Chromatic scale
   Scale chromatic = Scale.getChromatic(Note('C'));
 
-  Chord chord = Chord(Note('C'), 'major');
-  Scale scale = Scale.getMajor(Note('C'));
+  /// Notes of this chord will be showed on the fretboard
+  Chord chord = Chord.getChordFromMode(Note('C'), 'major');
 
-  String scaleMode = modes[0];
-  String chordMode = modes[0];
+  /// Notes of this scale will bbe showed on the fretboard
+  Scale scale = Scale.getScaleFromMode(Note('C'), 'major');
 
-  void updateFretboard(
-    String scaleMode,
-    String chordMode,
-    Note keyScale,
-    Note chordName,
-  ) {
+  /// Mode of scale to show
+  String scaleMode = scaleModes[0];
+
+  /// Mode of chord to show
+  String chordMode = chordModes[0];
+
+  /// Given a [Scale] mode [sMode], [Chord] mode [cMode], key [Note] of scale
+  /// [kScale] and a [Note] chord name [cName], update [scaleMode] and
+  /// [chordMode], builds [scale] and [chord] again and finally, update
+  /// fretboard.
+  void updateFretboard(String sMode, String cMode, Note kScale, Note cName) {
+    final scaleFactory = scaleRegistry[sMode]!;
     setState(() {
-      this.scaleMode = scaleMode;
-      this.chordMode = chordMode;
+      scaleMode = sMode;
+      chordMode = cMode;
 
-      chord = Chord(chordName, chordMode);
-      switch (scaleMode) {
-        case 'major':
-          scale = Scale.getMajor(keyScale);
-          break;
-        case 'minor':
-          scale = Scale.getMinor(keyScale);
-          break;
-        default:
-          scale = Scale.getMajor(keyScale);
-      }
+      scale = scaleFactory(kScale);
+
+      chord = Chord.getChordFromMode(cName, chordMode);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // Standard tunning
     List<Note> tunning = [
       Note('E'),
       Note('A'),
@@ -77,7 +77,7 @@ class _ScaleScreenState extends State<ScaleScreen> {
               DropdownButton<String>(
                 value: scaleMode,
                 items: <DropdownMenuItem<String>>[
-                  for (String mode in modes)
+                  for (String mode in scaleModes)
                     DropdownMenuItem<String>(
                       value: mode,
                       child: Text(mode),
@@ -114,7 +114,7 @@ class _ScaleScreenState extends State<ScaleScreen> {
               DropdownButton<String>(
                 value: chordMode,
                 items: <DropdownMenuItem<String>>[
-                  for (String mode in modes)
+                  for (String mode in chordModes)
                     DropdownMenuItem<String>(
                       value: mode,
                       child: Text(mode),
