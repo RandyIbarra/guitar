@@ -55,6 +55,13 @@ class Note {
     return Note.internal(allNotes[newValue], newValue);
   }
 
+  /// A Note type object supports the addition or subtraction of semitones
+  /// resulting in another note.
+  Note operator -(int semitones) {
+    int newValue = (position - semitones + allNotes.length) % allNotes.length;
+    return Note.internal(allNotes[newValue], newValue);
+  }
+
   /// Compares current note with other. Missing to overload == operator.
   bool isEqualTo(Note note) {
     return name == note.name;

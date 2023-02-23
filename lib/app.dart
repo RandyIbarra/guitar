@@ -8,8 +8,8 @@ class GuitarApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GuitarApp',
-      home: const ScaleScreen(title: 'Guitar Scales'),
       debugShowCheckedModeBanner: false,
+      home: const ScaleScreen(title: 'Guitar Scales'),
       theme: ThemeData(primarySwatch: Colors.purple),
     );
   }
