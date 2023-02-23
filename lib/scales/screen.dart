@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:guitar/guitar/fretboard.dart';
 
 import 'package:guitar/music/chord.dart';
 import 'package:guitar/music/note.dart';
 import 'package:guitar/music/scale.dart';
+import 'package:guitar/scales/custom_dropdown.dart';
 
 /// This page build a guitar [Fretboard] with a specific tunning and shows
 /// all notes for each fret space. Now, you only are able to change the tunning
@@ -72,78 +74,37 @@ class _ScaleScreenState extends State<ScaleScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('Scale Mode:'),
-              const SizedBox(width: 20),
-              DropdownButton<String>(
-                value: scaleMode,
-                items: <DropdownMenuItem<String>>[
-                  for (String mode in scaleModes)
-                    DropdownMenuItem<String>(
-                      value: mode,
-                      child: Text(mode),
-                    ),
-                ],
-                onChanged: (String? mode) {
-                  if (mode != null) {
-                    updateFretboard(mode, chordMode, scale.key, chord.key);
-                  }
-                },
+              CustomDropdown(
+                text: 'Scale Mode',
+                choices: scaleModes,
+                selectedChoice: scaleMode,
+                onChoiceChanged: updateFromScaleMode,
               ),
               const SizedBox(width: 20),
-              const Text('Scale:'),
-              const SizedBox(width: 20),
-              DropdownButton<String>(
-                value: scale.key.name,
-                items: <DropdownMenuItem<String>>[
-                  for (int i = 0; i < chromatic.notes.length; i++)
-                    DropdownMenuItem<String>(
-                      value: chromatic.notes[i].name,
-                      child: Text(chromatic.notes[i].name),
-                    ),
-                ],
-                onChanged: (String? noteName) {
-                  if (noteName != null) {
-                    Note note = Note(noteName);
-                    updateFretboard(scaleMode, chordMode, note, chord.key);
-                  }
-                },
+              CustomDropdown(
+                text: 'Scale',
+                choices: allNotes,
+                selectedChoice: scale.key.name,
+                onChoiceChanged: updateFromScale,
               ),
-              const SizedBox(width: 50),
-              const Text('Chord Mode:'),
-              const SizedBox(width: 20),
-              DropdownButton<String>(
-                value: chordMode,
-                items: <DropdownMenuItem<String>>[
-                  for (String mode in chordModes)
-                    DropdownMenuItem<String>(
-                      value: mode,
-                      child: Text(mode),
-                    ),
-                ],
-                onChanged: (String? mode) {
-                  if (mode != null) {
-                    updateFretboard(scaleMode, mode, scale.key, chord.key);
-                  }
-                },
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomDropdown(
+                text: 'Chord Mode',
+                choices: chordModes,
+                selectedChoice: chordMode,
+                onChoiceChanged: updateFromChordMode,
               ),
               const SizedBox(width: 20),
-              const Text('Chord:'),
-              const SizedBox(width: 20),
-              DropdownButton<String>(
-                value: chord.key.name,
-                items: <DropdownMenuItem<String>>[
-                  for (int i = 0; i < chromatic.notes.length; i++)
-                    DropdownMenuItem<String>(
-                      value: chromatic.notes[i].name,
-                      child: Text(chromatic.notes[i].name),
-                    ),
-                ],
-                onChanged: (String? noteName) {
-                  if (noteName != null) {
-                    Note note = Note(noteName);
-                    updateFretboard(scaleMode, chordMode, scale.key, note);
-                  }
-                },
+              CustomDropdown(
+                text: 'Chord',
+                choices: allNotes,
+                selectedChoice: chord.key.name,
+                onChoiceChanged: updateFromChord,
               ),
             ],
           ),
@@ -155,5 +116,35 @@ class _ScaleScreenState extends State<ScaleScreen> {
         ],
       ),
     );
+  }
+
+  /// Update fretoard after select a new [Scale] mode for the current [Scale]
+  void updateFromScaleMode(String? newScaleMode) {
+    if (newScaleMode != null) {
+      updateFretboard(newScaleMode, chordMode, scale.key, chord.key);
+    }
+  }
+
+  /// Update fretoard after select a new [Note] for the current [Scale]
+  void updateFromScale(String? newScaleName) {
+    if (newScaleName != null) {
+      Note scaleKey = Note(newScaleName);
+      updateFretboard(scaleMode, chordMode, scaleKey, chord.key);
+    }
+  }
+
+  /// Update fretoard after select a new [Chord] mode for the current [Chord]
+  void updateFromChordMode(String? newChordMode) {
+    if (newChordMode != null) {
+      updateFretboard(scaleMode, newChordMode, scale.key, chord.key);
+    }
+  }
+
+  /// Update fretoard after select a new [Note] for the current [Chord]
+  void updateFromChord(String? newChordName) {
+    if (newChordName != null) {
+      Note chordKey = Note(newChordName);
+      updateFretboard(scaleMode, chordMode, scale.key, chordKey);
+    }
   }
 }
