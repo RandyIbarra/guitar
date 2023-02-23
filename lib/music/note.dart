@@ -11,7 +11,23 @@ List<String> allNotes = [
   'G#',
   'A',
   'A#',
-  'B'
+  'B',
+];
+
+/// All note names (Equal temperament system)
+List<String> allNotesFlat = [
+  'C',
+  'Db',
+  'D',
+  'Eb',
+  'E',
+  'F',
+  'Gb',
+  'G',
+  'Ab',
+  'A',
+  'Bb',
+  'B',
 ];
 
 /// Dart implementation of a musical note.
