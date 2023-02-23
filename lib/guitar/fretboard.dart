@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guitar/guitar/fret_string.dart';
+import 'package:guitar/guitar/tunning.dart';
 import 'package:guitar/music/chord.dart';
 import 'package:guitar/music/note.dart';
 import 'package:guitar/music/scale.dart';
@@ -14,7 +15,7 @@ class Fretboard extends StatelessWidget {
 
   final Chord? chord;
   final Scale? scale;
-  final List<Note> tunning;
+  final Tunning tunning;
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +117,6 @@ class Fretboard extends StatelessWidget {
   }
 
   Note _getNote(int string, int fretIndex) {
-    return tunning[string - 1] + fretIndex;
+    return tunning.notes[string - 1] + fretIndex;
   }
 }
