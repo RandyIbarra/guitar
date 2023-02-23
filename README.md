@@ -8,6 +8,6 @@ flutter run
 ```
 
 ## Example
-Generated diagram for C Major Scale
+Generated diagram for C Major Scale and C Major Chord.
 
-![c_major_scale](https://user-images.githubusercontent.com/24424215/217707685-9defd020-6216-4a73-b291-a63edf24e2ea.PNG)
+![c_major_scale_flutter](https://user-images.githubusercontent.com/24424215/220823472-01139292-e82d-45cd-b075-af25ba0529c7.PNG)
